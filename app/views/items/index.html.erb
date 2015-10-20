@@ -1,0 +1,12 @@
+<h1>Items#index</h1>
+<p>Find me in app/views/items/index.html.erb</p>
+
+<table class="table">
+<% @items.each do |item| %>
+  <tr>
+    <td><%= item.name %></td>
+    <td>expires</td>
+    <td><%= link_to "Completed", item, method: :delete, class: "btn btn-success" %></td>
+  </tr>
+<% end %>
+</table>
