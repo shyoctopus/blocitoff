@@ -1,12 +1,10 @@
-<h1>Items#index</h1>
-<p>Find me in app/views/items/index.html.erb</p>
+<h1>My Items</h1>
 
-<table class="table">
-<% @items.each do |item| %>
-  <tr>
-    <td><%= item.name %></td>
-    <td>expires</td>
-    <td><%= link_to "Completed", item, method: :delete, class: "btn btn-success" %></td>
-  </tr>
-<% end %>
+<table class="table js-items">
+<%= render @items %>
 </table>
+
+<%#= link_to "New Item", new_item_path, class: "btn btn-success" %>
+<div class="new-item">
+<%= render "form", item: Item.new %>
+</div>

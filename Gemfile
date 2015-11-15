@@ -29,8 +29,11 @@ gem 'figaro'
 
 gem 'bootstrap-sass'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+gem 'faker'
+
+gem 'bcrypt'
+
+gem 'json', '~> 1.8', '>= 1.8.3'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

@@ -1,6 +1,8 @@
 class ItemsController < ApplicationController
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
   def index
     @items = current_user.items
+    @item = Item.new
   end
 
   def new
@@ -8,15 +10,18 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.new(item_params)
 
     if @item.save
       flash[:notice] = "Your item was saved."
-      redirect_to items_path
     else
       # flash bad
       flash[:error] = "WTF?"
-      render :new
+    end
+
+    respond_to do |format|
+      format.html { redirect_to items_path}
+      format.js 
     end
   end
 
@@ -24,22 +29,30 @@ class ItemsController < ApplicationController
   end
 
   def update
+    if @item.update_attributes(item_params)
+      flash[:notice] = "Well done!"
+      redirect_to items_path
+    else
+      flash[:error] = "Doh!"
+      render :edit
+    end
   end
 
   def show
-    @item = current_user.items.find(params[:id])
   end
 
   def destroy
-    @item = current_user.items.find(params[:id])
 
     if @item.destroy
       #flash good
     else
       #flash bad
     end
+    respond_to do |format|
+      format.html { redirect_to items_path }
+      format.js
+    end
 
-    redirect_to items_path
   end
 
   private
@@ -47,4 +60,9 @@ class ItemsController < ApplicationController
   def item_params
     params.require(:item).permit(:name)
   end
+
+  def set_item
+    @item = current_user.items.find(params[:id])
+  end
+
 end
